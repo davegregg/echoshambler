@@ -1,1 +1,1 @@
-rails new . --database=postgresql
+# WHITEBOARD
