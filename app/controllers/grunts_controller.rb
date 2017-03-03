@@ -1,0 +1,3 @@
+class GruntsController < ApplicationController
+
+end
