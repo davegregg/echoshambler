@@ -20,6 +20,8 @@ gem 'puma', '~> 3.0'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# https://github.com/cmer/socialization
+gem 'socialization', github: 'davegregg/socialization'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

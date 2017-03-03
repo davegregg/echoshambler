@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/davegregg/socialization.git
+  revision: 41b8418b0ae5af9b930fc1cc6a0365819da721cd
+  specs:
+    socialization (1.2.0)
+      activerecord
+
+GIT
   remote: https://github.com/rails-api/active_model_serializers.git
   revision: ff27032720956f7c5cd9ef50618606cfebaa7ad9
   specs:
@@ -156,6 +163,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.2)
+  socialization!
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
