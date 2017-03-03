@@ -4,4 +4,12 @@ class Grunt < ApplicationRecord
   validates :body, presence: true,
                    #
                    length: { maximum: 160 }
+
+  def self.tracks(user)
+    creeping_ids = user.creepees(User)
+                       .pluck(:id)
+    all_ids= creeping_ids << user.id
+    Grunt.where(user_id: all_ids)
+         .order("created_at DESC")
+  end
 end
