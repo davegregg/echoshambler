@@ -2,22 +2,30 @@ Rails.application.routes.draw do
   # resources :users, only: [:index]
   # resources :grunts
 
-  post '/login'  => 'sessions#create'
-  # options '/'    => 'options#index'
+  permit_periods = -> (field){ Hash(
+    constraints: { field => /[^\/]+(?=\.json\z)|[^\/]+/ }
+  ) }
 
-  root                                   'grunts#index'
+  post '/login'  => 'sessions#create'
+
   get    '/grunts'                    => 'grunts#index'
-  post   '/users/:username/grunt'     => 'grunts#create'
-  get    '/users/:username/grunts'    => 'grunts#show'
-  get    '/users/:username/grunt/:id' => 'grunts#show'
-  patch  '/users/:username/grunt/:id' => 'grunts#update'
-  delete '/users/:username/grunt/:id' => 'grunts#delete'
+  post   '/user/:username/grunt'      => 'grunts#create',
+                                         **permit_periods.(:username)
+  get    '/user/:username/grunts'     => 'grunts#show',
+                                         **permit_periods.(:username)
+  get    '/user/:username/grunt/:id'  => 'grunts#show',
+                                         **permit_periods.(:username)
+  delete '/user/:username/grunt/:id'  => 'grunts#destroy',
+                                         **permit_periods.(:username)
 
   get 'users'              => 'users#index'
   post '/user'             => 'users#create'
-  get '/user/:username'    => 'users#show'
-  patch '/user/:username'  => 'users#update'
-  delete '/user/:username' => 'users#destroy'
+  get '/user/:username'    => 'users#show',
+                              **permit_periods.(:username)
+  patch '/user/:username'  => 'users#update',
+                              **permit_periods.(:username)
+  delete '/user/:username' => 'users#destroy',
+                              **permit_periods.(:username)
 
   # For details on the DSL available within this file,
   # see http://guides.rubyonrails.org/routing.html

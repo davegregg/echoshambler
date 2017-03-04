@@ -4,16 +4,20 @@ class ApplicationController < ActionController::API
     render json: model_class.all
   end
 
-  def show
-    key = by_parameter ||= :id # default to :id if undefined
-    parameter = {key => user_params[by_parameter]}
+  def show(by_parameter = :id)
+    key = by_parameter
+    parameter = {key => request_params[by_parameter]}
     render json: model_class.find_by(parameter)
   end
 
   private
 
   def model_class
-    serialization_scope.class
+    eval(self.lookup_context
+             .prefixes # controller name prefixes, by ascending inheritance
+             .first # lowercase, pluralized name of the model we want
+             .camelize
+             .singularize)
   end
 
   def current_user
@@ -30,8 +34,9 @@ class ApplicationController < ActionController::API
   def error_messages(class_instance)
     errors = class_instance.errors
                            .full_messages
-                           .map!{ |error| Hash(error: error) }
-    Hash(json: {errors: errors}, status: 400)
+                           .map!{ |error| {error: error} }
+    Hash(json: {errors: errors},
+         status: 400)
   end
 
 end
