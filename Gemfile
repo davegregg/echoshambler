@@ -30,6 +30,11 @@ gem 'socialization', github: 'davegregg/socialization'
 gem 'rack-cors'
 # Heroku production server compatibility
 gem 'rails_12factor', group: :production
+# Permit case-insensitivity in routes
+gem 'route_downcaser'
+
+# seed data
+gem 'ffaker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

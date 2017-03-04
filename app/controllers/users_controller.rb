@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
 
-  def index
-    render json: User.all
-  end
-
   def show
-    render json: User.find_by(username: user_params[:username])
+    by_parameter = :username
+    super
   end
 
   def create
@@ -13,9 +10,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user, serializer: UserTrustedSerializer
     else
-      errors = user.errors.full_messages
-      errors.map!{ |error| Hash(error: error) }
-      render json: Hash(errors: errors), status: 400
+      render error_messages(user)
     end
   end
 

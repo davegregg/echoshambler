@@ -2,10 +2,10 @@ require 'uri'
 
 class User < ApplicationRecord
   has_many :grunts
-  validates :username, presence: true,
-                       uniqueness: true
-  validates :email,    presence: true,
-                       uniqueness: true
+  validates :username,  presence: true,
+                        uniqueness: true
+  validates :email,     presence: true,
+                        uniqueness: true
   validates :photo_url, required: false
   validates :photo_url, format: { with: URI.regexp },
                         if: 'photo_url.present?'
