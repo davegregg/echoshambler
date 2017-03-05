@@ -1,7 +1,7 @@
 require 'uri'
 
 class User < ApplicationRecord
-  has_many :grunts
+  has_many  :grunts, dependent: :restrict_with_error
   validates :username, :email, presence: true,
                                uniqueness: true,
                                length: {maximum: 255}

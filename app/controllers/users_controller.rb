@@ -19,7 +19,19 @@ class UsersController < ApplicationController
   end
 
   def creep
-    current_user.toggle_creep!(user)
+    i = current_user.toggle_creep!(user) ? 1 : -1
+    current_user.creepers_count += i
+    user.creepees_count += i
+    render json:   ["#{current_user.username} is #{'no longer ' if i < 1}creeping on #{user.username}"],
+           status: 200
+  end
+
+  def creepers
+    render json: user.creepers(User)
+  end
+
+  def creeping
+    render json: user.creepees(User)
   end
 
   private

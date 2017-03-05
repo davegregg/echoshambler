@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
 
-  permit_periods_in = lambda do |path_var|
-    Hash(constraints: {path_var => /[^\/]+(?=\.json\z)|[^\/]+/})
+  permit_periods_in = lambda do |*path_vars|
+    match = /[^\/]+(?=\.json\z)|[^\/]+/
+    contraints = {}
+    path_vars.each do |path_var|
+      contraints[path_var] = match
+    end
+    temp = Hash(constraints: contraints)
+    return temp
   end
 
   post   '/login'                     => 'sessions#create'
@@ -24,7 +30,12 @@ Rails.application.routes.draw do
                                          **permit_periods_in.(:username)
   delete '/user/:username'            => 'users#destroy',
                                          **permit_periods_in.(:username)
-  post   '/creep/:username'           => 'users#creep',
-                                         **permit_periods_in.(:username)
+
+  post   '/user/:creeper/creep/:username' => 'users#creep',
+                                             **permit_periods_in.(:creeper, :username)
+  get    '/user/:username/creepers'       => 'users#creepers',
+                                             **permit_periods_in.(:username)
+  get    '/user/:username/creeping'       => 'users#creeping',
+                                             **permit_periods_in.(:username)
 
 end
