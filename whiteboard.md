@@ -1,7 +1,6 @@
 # WHITEBOARD
 
 ROADMAP:
-- Creeping
 - Add creeping_user? state
 - Add creeper/creeping count columns
 - Add password minimum length

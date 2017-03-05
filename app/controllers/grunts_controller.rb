@@ -10,8 +10,12 @@ class GruntsController < ApplicationController
 
   before_action :require_user, except: [:index, :show]
 
+  def index
+    current_user ? render(json: Grunt.tracks(user)) : super
+  end
+
   def show
-    # show one grunt by id, or all users' grunts
+    # show one grunt by path-provided id, or all of this users' grunts
     request_params[:id] ? super : render(json: user.grunts)
   end
 
