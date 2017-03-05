@@ -35,7 +35,7 @@ class GruntsController < ApplicationController
   private
 
   def request_params
-    params[:username].downcase!
+    params[:username].downcase! if params[:username].nil? == false
     params.permit(:id,
                   :body,
                   :user,
