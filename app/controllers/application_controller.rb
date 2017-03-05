@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
 
   def index
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$#{model_class}$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     render json: model_class.all
   end
 
