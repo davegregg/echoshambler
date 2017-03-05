@@ -20,18 +20,22 @@ class ApplicationController < ActionController::API
              .singularize)
   end
 
+  def user
+    User.find_by(username: request_params[:username])
+  end
+
   def current_user
     @current_user ||= User.find_by(token: params[:token])
   end
 
   def require_user
     unless current_user
-      render json: ["You need to be logged in to do this."],
+      render json:   ["You need to be logged in to do this."],
              status: 401
     end
   end
 
-  def error_messages(class_instance)
+  def error_up(class_instance)
     errors = class_instance.errors
                            .full_messages
                            .map!{ |error| {error: error} }

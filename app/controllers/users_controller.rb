@@ -5,11 +5,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(request_params)
-    if user.save
-      render json: user, serializer: UserTrustedSerializer
+    new_user = User.new(request_params)
+    if new_user.save
+      render json: new_user, serializer: UserTrustedSerializer
     else
-      render error_messages(user)
+      render error_up(new_user)
     end
   end
 
@@ -26,12 +26,11 @@ class UsersController < ApplicationController
 
   def request_params
     params[:username].downcase!
-    parameters = params.permit(:username,
-                               :fullname,
-                               :email,
-                               :photo_url,
-                               :password)
-    return parameters
+    params.permit(:username,
+                  :fullname,
+                  :email,
+                  :photo_url,
+                  :password)
   end
 
 end

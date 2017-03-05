@@ -1,5 +1,10 @@
 # WHITEBOARD
 
+ROADMAP:
+- Login/Session
+- Creeping
+- Delete User
+
 Prefix Verb   URI Pattern           Controller#Action
  users GET    /users(.:format)      users#index
        POST   /users(.:format)      users#create

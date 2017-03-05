@@ -1,5 +1,5 @@
 class GruntsController < ApplicationController
-  ### works locally, but not on Heroku. Version issues?
+  ### works locally, but not on Heroku. Version issues? Evaluation differences?
   # before_action do
   #   request_params.each do |par|
   #     self.class.send(:define_method,
@@ -9,24 +9,18 @@ class GruntsController < ApplicationController
   # end
 
   def show
-    if request_params[:id]
-      super
-    else
-      render json: user.grunts
-    end
+    request_params[:id] ? super : render(json: user.grunts)
   end
 
   def create
+    return require_user unless current_user
     grunt = Grunt.new(body: request_params[:body],
                       user: user)
-    if grunt.save
-      render json: grunt
-    else
-      render error_messages(grunt)
-    end
+    grunt.save ? render(json: grunt) : render(error_up(grunt))
   end
 
   def destroy
+    return require_user unless current_user
     user.grunts
         .find(request_params[:id])
         .destroy
@@ -40,10 +34,6 @@ class GruntsController < ApplicationController
                   :body,
                   :user,
                   :username)
-  end
-
-  def user
-    User.find_by(username: request_params[:username])
   end
 
 end
