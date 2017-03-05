@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # resources :users, only: [:index]
-  # resources :grunts
 
   permit_periods = -> (field){ Hash(
     constraints: { field => /[^\/]+(?=\.json\z)|[^\/]+/ }
@@ -27,6 +25,4 @@ Rails.application.routes.draw do
   delete '/user/:username' => 'users#destroy',
                               **permit_periods.(:username)
 
-  # For details on the DSL available within this file,
-  # see http://guides.rubyonrails.org/routing.html
 end

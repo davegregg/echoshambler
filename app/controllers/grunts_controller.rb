@@ -1,12 +1,12 @@
 class GruntsController < ApplicationController
-
-  before_action do
-    request_params.each do |par|
-      self.class.send(:define_method,
-                      par.to_sym,
-                      ->{ request_params[par] })
-    end
-  end
+  ### works locally, but not on Heroku. Version issues?
+  # before_action do
+  #   request_params.each do |par|
+  #     self.class.send(:define_method,
+  #                     par.to_sym,
+  #                     ->{ request_params[par] })
+  #   end
+  # end
 
   def show
     if request_params[:id]
@@ -35,7 +35,7 @@ class GruntsController < ApplicationController
   private
 
   def request_params
-    params[:username].downcase! if params[:username].nil? == false
+    params[:username]&.downcase! #if params[:username].nil? == false
     params.permit(:id,
                   :body,
                   :user,
