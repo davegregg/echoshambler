@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :require_user, only: [:creep, :destroy]
+
   def show
     super(:username)
   end
@@ -16,11 +18,9 @@ class UsersController < ApplicationController
   def destroy
   end
 
-  # def follow
-  #   @current_user.toggle_follow!(
-  #                   User.find(params[:username])
-  #                 )
-  # end
+  def creep
+    current_user.toggle_creep!(user)
+  end
 
   private
 
