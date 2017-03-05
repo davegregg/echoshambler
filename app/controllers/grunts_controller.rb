@@ -9,7 +9,7 @@ class GruntsController < ApplicationController
   end
 
   def show
-    if id
+    if request_params[:id]
       super
     else
       render json: user.grunts
@@ -17,7 +17,7 @@ class GruntsController < ApplicationController
   end
 
   def create
-    grunt = Grunt.new(body: body,
+    grunt = Grunt.new(body: request_params[:body],
                       user: user)
     if grunt.save
       render json: grunt
@@ -28,7 +28,7 @@ class GruntsController < ApplicationController
 
   def destroy
     user.grunts
-        .find(id)
+        .find(request_params[:id])
         .destroy
   end
 
@@ -43,7 +43,7 @@ class GruntsController < ApplicationController
   end
 
   def user
-    User.find_by(username: username)
+    User.find_by(username: request_params[:username])
   end
 
 end
