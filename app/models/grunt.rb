@@ -1,9 +1,8 @@
 class Grunt < ApplicationRecord
   belongs_to :user
-
-  validates :body, presence: true,
-                   allow_blank: false,
-                   length: {maximum: 160}
+  validates  :body, presence: true,
+                    allow_blank: false,
+                    length: {maximum: 160}
 
   def self.tracks(user)
     creeping_ids = user.creepees(User)
