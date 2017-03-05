@@ -8,19 +8,20 @@ class GruntsController < ApplicationController
   #   end
   # end
 
+  before_action :require_user, except: [:index, :show]
+
   def show
+    # show one grunt by id, or all users' grunts
     request_params[:id] ? super : render(json: user.grunts)
   end
 
   def create
-    return require_user unless current_user
     grunt = Grunt.new(body: request_params[:body],
                       user: user)
     grunt.save ? render(json: grunt) : render(error_up(grunt))
   end
 
   def destroy
-    return require_user unless current_user
     user.grunts
         .find(request_params[:id])
         .destroy

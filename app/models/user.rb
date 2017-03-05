@@ -11,6 +11,6 @@ class User < ApplicationRecord
                         if: 'photo_url.present?'
   has_secure_password
   has_secure_token
-  # acts_as_follower
-  # acts_as_followable
+  acts_as_creeper
+  acts_as_creepable
 end
