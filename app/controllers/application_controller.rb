@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::API
 
   def index
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$#{model_class}$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    if !defined? model_class
+      puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$___undefined___$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    end
+    if model_class != nil
+      puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$#{model_class}$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    else
+      puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$___nil___$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    end
     render json: model_class.all
   end
 
