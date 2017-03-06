@@ -40,7 +40,7 @@ class ApplicationController < ActionController::API
                            .full_messages
                            .map!{ |error| {error: error} }
     Hash(json: {errors: errors},
-         status: 400)
+         status: 401)
   end
 
 end

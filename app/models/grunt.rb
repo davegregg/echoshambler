@@ -4,7 +4,7 @@ class Grunt < ApplicationRecord
                     allow_blank: false,
                     length: {maximum: 160}
 
-  def self.tracks(user)
+  def self.chamber(user)
     creeping_ids = user.creepees(User)
                        .pluck(:id)
     all_ids = creeping_ids << user.id

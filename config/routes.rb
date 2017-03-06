@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post   '/login'                    => 'sessions#create'
 
   get    '/grunts'                   => 'grunts#index'
-  post   '/user/:username/tracks'    => 'grunts#index',
+  post   '/user/:username/chamber'   => 'grunts#index',
                                         **permit_periods_in.(:username)
   post   '/user/:username/grunt'     => 'grunts#create',
                                         **permit_periods_in.(:username)
@@ -28,11 +28,15 @@ Rails.application.routes.draw do
   delete '/user/:username'           => 'users#destroy',
                                         **permit_periods_in.(:username)
 
-  post   '/user/:creeper/creep/:username' => 'users#creep',
-                                             **permit_periods_in.(:creeper, :username)
-  get    '/user/:username/creepers'       => 'users#creepers',
-                                             **permit_periods_in.(:username)
-  get    '/user/:username/creeping'       => 'users#creeping',
-                                             **permit_periods_in.(:username)
+  post   '/user/:creeper/creep_on/:username' => 'users#creep_on',
+                                                **permit_periods_in.(:creeper,
+                                                                     :username)
+  get   '/user/:creeper/creeps_on/:username' => 'users#creeps_on',
+                                                **permit_periods_in.(:creeper,
+                                                                     :username)
+  get    '/user/:username/creepers'          => 'users#creepers',
+                                                **permit_periods_in.(:username)
+  get    '/user/:username/creeping_on'       => 'users#creeping_on',
+                                                **permit_periods_in.(:username)
 
 end

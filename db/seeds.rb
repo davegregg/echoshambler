@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-17.times do
+19.times do
   fake_user = User.new({
     username:  FFaker::Internet.user_name,
     email:     FFaker::Internet.email,
@@ -16,10 +16,21 @@
   })
   fake_user.save!
 
-  rand(23).times do
+  rand(11).times do
     Grunt.new({
       user: fake_user,
       body: FFaker::Tweet.tweet[0...160],
     }).save!
+  end
+end
+
+User.all.each do |creeping_user|
+  user_pool = [*User.all] - [creeping_user]
+  rand(User.count - 1).times do
+    creeped_on_user = user_pool.sample
+    user_pool -= [creeped_on_user]
+    creeping_user.creep!(creeped_on_user)
+    creeping_user.creepees_count += 1
+    creeped_on_user.creepers_count += 1
   end
 end
