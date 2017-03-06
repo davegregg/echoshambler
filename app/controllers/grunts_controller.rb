@@ -11,7 +11,7 @@ class GruntsController < ApplicationController
   before_action :require_user, except: [:index, :show]
 
   def index
-    current_user ? render(json: Grunt.tracks(user)) : super
+    current_user ? render(json: Grunt.chamber(user)) : super
   end
 
   def show

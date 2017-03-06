@@ -16,21 +16,27 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    binding.pry
+    user.destroy
   end
 
-  def creep
+  def creep_on
     i = current_user.toggle_creep!(user) ? 1 : -1
     current_user.creepers_count += i
     user.creepees_count += i
-    render json:   ["#{current_user.username} is #{'no longer ' if i < 1}creeping on #{user.username}"],
-           status: 200
+    render json:   ["#{current_user.username} is #{'no longer ' if i < 1}creeping on #{user.username}"]
+  end
+
+  def creeps_on
+    render json: [User.find_by(username: request_params[:creeper])
+                      .creeps?(user)]
   end
 
   def creepers
     render json: user.creepers(User)
   end
 
-  def creeping
+  def creeping_on
     render json: user.creepees(User)
   end
 
@@ -42,7 +48,8 @@ class UsersController < ApplicationController
                   :fullname,
                   :email,
                   :photo_url,
-                  :password)
+                  :password,
+                  :creeper)
   end
 
 end
