@@ -1,13 +1,4 @@
 class GruntsController < ApplicationController
-  ### works locally, but not on Heroku. Version issues? Evaluation differences?
-  # before_action do
-  #   request_params.each do |par|
-  #     self.class.send(:define_method,
-  #                     par.to_sym,
-  #                     ->{ request_params[par] })
-  #   end
-  # end
-
   before_action :require_user, except: [:index, :show]
 
   def index
@@ -37,7 +28,6 @@ class GruntsController < ApplicationController
     params[:username]&.downcase!
     params.permit(:id,
                   :body,
-                  :user,
                   :username)
   end
 

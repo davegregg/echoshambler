@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  # necessary for permitting periods which aren't the beginning of a format extension
   permit_periods_in = lambda do |*vars|
     match = /[^\/]+(?=\.json\z)|[^\/]+/
     contraints = vars.map{ |var| [var, match] }.to_h
