@@ -16,14 +16,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    binding.pry
     user.destroy
   end
 
   def creep_on
-    i = current_user.toggle_creep!(user) ? 1 : -1
-    current_user.creepers_count += i
-    user.creepees_count += i
+    increment = current_user.toggle_creep!(user) ? 1 : -1
+    current_user.creepers_count += increment
+    user.creepees_count += increment
     render json:   ["#{current_user.username} is #{'no longer ' if i < 1}creeping on #{user.username}"]
   end
 
