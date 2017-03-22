@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user.destroy
+    user.destroy if user == current_user
   end
 
   def creep_on
