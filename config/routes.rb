@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   post   '/login'                    => 'sessions#create'
 
   get    '/grunts'                   => 'grunts#index'
-  # post   '/user/:username/chamber'   => 'grunts#index',
-  #                                       **permit_periods_in.(:username)
   get   '/user/:username/chamber'    => 'grunts#index',
                                         **permit_periods_in.(:username)
   post   '/user/:username/grunt'     => 'grunts#create',

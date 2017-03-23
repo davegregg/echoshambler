@@ -1,5 +1,5 @@
 class Grunt < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   validates  :body, presence: true,
                     allow_blank: false,
                     length: {maximum: 160}

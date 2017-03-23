@@ -1,4 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :username, :fullname, :photo_url, :creepers_count, :creepees_count
+  attributes :id, :username, :fullname, :photo_url, :creepers_count, :creepees_count, :created_at
   has_many :grunts
 end

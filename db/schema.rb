@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305212919) do
+ActiveRecord::Schema.define(version: 20170323103927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170305212919) do
     t.datetime "updated_at",                  null: false
     t.integer  "creepees_count",  default: 0
     t.integer  "creepers_count",  default: 0
+    t.integer  "grunts_count",    default: 0
   end
 
   add_foreign_key "grunts", "users"
