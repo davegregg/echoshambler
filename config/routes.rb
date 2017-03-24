@@ -7,10 +7,11 @@ Rails.application.routes.draw do
     Hash(constraints: contraints)
   end
 
+  get    '/login'                    => 'sessions#new', as: 'sessions_create'
   post   '/login'                    => 'sessions#create'
 
   get    '/grunts'                   => 'grunts#index'
-  get   '/user/:username/chamber'    => 'grunts#index',
+  get    '/user/:username/chamber'   => 'grunts#index',
                                         **permit_periods_in.(:username)
   post   '/user/:username/grunt'     => 'grunts#create',
                                         **permit_periods_in.(:username)

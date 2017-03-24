@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :require_user, only: [:creep, :destroy]
+  before_action :require_self, only: [:destroy]
+
 
   def show
     super(:username)
@@ -49,6 +51,13 @@ class UsersController < ApplicationController
                   :photo_url,
                   :password,
                   :creeper)
+  end
+
+  def require_self
+    unless @user == current_user
+      render json:   ["Sorry, that's forbidden."],
+             status: 403
+    end
   end
 
 end
